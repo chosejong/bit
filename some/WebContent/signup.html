@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<!-- css와 연동 -->
+<link rel="stylesheet" href="login.css" type="text/css" />
+<script src="./js/jquery-1.11.3.min.js"></script>
+<script> 
+
+ 	function login() {
+
+ 		// input 의 이메일 값 추출 (jquery)	
+		var emailStr = $("#id").val(); 
+		//  input 의 첫번째 비밀번호 값 추출 (jquery)	
+		var password = $("#password").val();
+		//  input 의 두번째 비밀번호 값 추출 (jquery)	
+		var password2 = $("#password2").val();
+		
+		var name = $("#name").val();
+		// e-mail 검사 정규식
+		var format = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+		
+		var data = {
+			id : emailStr,
+			password : password,
+			name : name,
+		}
+		
+		
+		// e-mail 형식이 잘못되었을경우
+		if (format.test(emailStr) != true) {
+		/* if (emailStr.test(format) != true) { */
+
+			// 형식에 어긋남
+
+			alert("이메일 형식에 맞게 입력해 주세요");
+
+			$("#id").focus(); //해당 input으로 포커스 이동
+
+			return false;
+		
+		//e-mail 첫번째 비빌번호와 두번째 비밀번호가 틀린경우 
+		} else if (password != password2) {
+
+			alert("비밀번호를 확인해 주세요.");
+
+			$("#password").focus(); //해당 input으로 포커스 이동
+
+			return false;
+		
+		// e-mail 형식과 비밀번호가 전부 일치 할경우
+		}  else {
+
+			$.post('./signup_function.jsp', data, function(data){
+				if(data.confirm == true)
+				{
+					alert("아이디가 있슴니다.");
+				} else {
+					alert("가입 되었습니다.")
+				}
+				
+			});
+
+		}  
+} 
+
+</script>
+</head>
+<body>
+	<h1>회원가입</h1>
+	<table>
+		<!--회원가입 폼 -->
+		<tfoot>
+			<tr>
+				<td>name</td>
+			</tr>
+			<tr>
+				<td><input id="name" type="text" name="id" size="30" id="name"
+					placeholder="NAME" /></td>
+			</tr>
+			<tr>
+				<td>e-mail</td>
+			</tr>
+			<tr>
+				<td><input class="id" type="text" name="email" size="30" 
+					id="id" placeholder="E-MAIL" /></td>
+			</tr>
+
+			<tr>
+				<td>password</td>
+			</tr>
+			<tr>
+				<td><input class="password" type="password" name="password"
+					id="password" size="30" placeholder="PASSWORD" /></td>
+			</tr>
+
+			<tr>
+				<td>confirm password</td>
+			</tr>
+			<tr>
+				<td><input class="password" type="password" name="password2"
+					id="password2" size="30" placeholder="CONFIRM PASSWORD" /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><hr></td>
+			</tr>
+			<tr>
+				<td><button onclick="login();">생성하기</button></td>
+			</tr>
+
+		</tfoot>
+	</table>
+
+</body>
+</html>
