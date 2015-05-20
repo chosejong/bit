@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- css와 연동 -->
+
+<link rel="stylesheet" href="login.css" type="text/css" />
+
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+
+<script>
+
+
+	function login(){
+		var id = $('#id').val();
+		var passwd = $('#password').val();
+		
+		var data = {
+				id : id,
+				password : passwd,
+			};
+		
+		if(Check_Mail(id) && passwd != '') {
+			$.post('./login.jsp', data, function(data, status) {
+				if(data.mno=="null"){
+					alert('일치하는 아이디가 없습니다.');
+				} else if(data.password != passwd){
+					alert('비밀번호가 일치하지 않습니다.');
+				} else {
+					alert(data.nickname+'님 안녕하세요.');
+					location.href='mainfirst.jsp';
+				}
+				
+			});
+			
+		} else if (!Check_Mail(id) || id == ''){
+			alert('아이디를 입력하지 않았거나, 형식이 다릅니다.');
+		} else {
+			alert('비밀번호를 입력해주세요.');
+		}
+	}
+	
+	function Check_Mail(str) {
+		emailEx1 = /[^@]+@[A-Za-z0-9_-]+.[A-Za-z]+/;
+		emailEx2 = /[^@]+@[A-Za-z0-9_-]+.[A-Za-z0-9_-]+.[A-Za-z]+/;
+		emailEx3 = /[^@]+@[A-Za-z0-9_-]+.[A-Za-z0-9_-]+.[A-Za-z0-9_-]+.[A-Za-z]+/;
+		if (emailEx1.test(str))
+			return true;
+		;
+		if (emailEx2.test(str))
+			return true;
+		if (emailEx3.test(str))
+			return true;
+		return false;
+	}
+
+	$(document).ready(function(){
+		
+	});
+	
+
+</script>
+
+
+</head>
+<body>
+	<!--로그인 -->
+	<div>
+		<!--나중에 이미지로 변경-->
+		<h1>bit38</h1>
+	</div>
+	
+		<table>
+			<!--로그인/회원가입 폼 -->
+
+			<tbody>
+				<tr>
+					<td>ID(e-mail)</td>
+					<td><input id="id" type="text" name="id" size="30"
+						placeholder="e-mail" /></td>
+				</tr>
+				<tr>
+					<td>PW</td>
+					<td><input id="password" type="password" name="password"
+						size="30" placeholder="password"/></td>
+
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="2"><hr></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td><button onclick="login();">로그인</button> 
+					<input name="submit" type="submit" value="회원가입" /></td>
+				</tr>
+			</tfoot>
+		</table>
+	
+</body>
+</html>
