@@ -1,63 +1,54 @@
+<%@page import="java.util.StringTokenizer"%>
+<%@page import="java.io.Console"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="jdbc.ConnectionContext"%>
+<%@page import="java.sql.*"%>
 <%@ page language="java" contentType="application/json; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="java.sql.*"%>
 <%
-	String id = request.getParameter("id");
-	String password = request.getParameter("passwd");
+	String mno = session.getAttribute("mno").toString();
 
-	String mno = null;
-	String passwd = null;
-	String nickname = null;
-	
 	Connection conn = ConnectionContext.getConnection();
+	
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 	
+	ArrayList<String> groupNames  = new ArrayList<String>();
+	
 	try {
-		String sql = "select * from member where id=?";
-		
+		String sql = "select MYGROUPNAME from mygroup a, member_mygroup b where a.grno=b.grno and b.MNO=?";
 		pstmt = conn.prepareStatement(sql);
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, id);
+		pstmt.setString(1, mno);
 
 		rs = pstmt.executeQuery();
 
 		while (rs.next()) {
-			mno = rs.getString("MNO");
-			id = rs.getString("ID");
-			passwd = rs.getString("passwd");
-			nickname = rs.getString("nickname");
+			groupNames.add('"'+rs.getString("mygroupname")+'"');
 		}
-
+		System.out.println(groupNames);
 	} catch (Exception e) {
+
 		e.printStackTrace();
+
 	} finally {
 		if (rs != null)
 			try {
 				rs.close();
 			} catch (SQLException sqle) {
+			
 			}
 		if (pstmt != null)
 			try {
 				pstmt.close();
 			} catch (SQLException sqle) {
+		
 			}
 		if (conn != null)
 			try {
 				conn.close();
 			} catch (SQLException sqle) {
+			
 			}
 	}
-	
-	session.setAttribute("mno", mno);
-	session.setAttribute("id", id);
-	session.setAttribute("nickname", nickname);
-	
 %>
-{ 
-	"mno" : "<%=mno%>",
-	"id" : "<%=id%>",
-	"password" : "<%=passwd%>",
-	"nickname" : "<%=nickname%>"
-}
+<%=groupNames.toString()%>11
