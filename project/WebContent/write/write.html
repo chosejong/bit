@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="write.css" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+
+
+<script>
+$(document).ready(function(){
+    $("#flip").click(function(){
+        $("#panel").slideToggle("fast");
+    });
+});
+</script>
+
+<script>
+$(function() {
+    $( "#from" ).datepicker({
+      defaultDate: "+1w",
+      changeMonth: true,
+      numberOfMonths: 2,
+      onClose: function( selectedDate ) {
+        $( "#to" ).datepicker( "option", "minDate", selectedDate );
+      }
+    });
+    $( "#to" ).datepicker({
+      defaultDate: "+1w",
+      changeMonth: true,
+      numberOfMonths: 3,
+      onClose: function( selectedDate ) {
+        $( "#from" ).datepicker( "option", "maxDate", selectedDate );
+      }
+    });
+  });
+</script>
+<script>
+ document.getElementById("flip").style.display="while";
+ document.getElementById("flip").style.background-color="blue";
+ </script>
+
+</head>
+<body>
+
+<h2>Label</h2>	
+<div id="flip">
+
+<input type="image" src="images/while.jpg" width="45" height="45">
+</div>
+
+<div id="panel">
+
+<input type="image" src="images/cyan.jpg" onmouseover="this.src='images/cyan1.jpg'" 
+onmouseout="this.src='images/cyan.jpg'" width="50" height="50" onclick="">
+<input type="image" src="images/pink.jpg" onmouseover="this.src='images/pink1.jpg'" 
+onmouseout="this.src='images/pink.jpg'"  width="50" height="50" onclick="">
+<input type="image" src="images/red.jpg" onmouseover="this.src='images/red1.jpg'" 
+onmouseout="this.src='images/red.jpg'" width="50" height="50" onclick="">
+<input type="image" src="images/yellow.jpg" onmouseover="this.src='images/yellow1.jpg'" 
+onmouseout="this.src='images/yellow.jpg'" width="50" height="50" onclick="">
+<input type="image" src="images/blue.jpg" onmouseover="this.src='images/blue1.jpg'" 
+onmouseout="this.src='images/blue.jpg'" width="50" height="50" onclick="">
+</div>
+<ul>
+<a href="#">Subject(글자를 누르면 창이뜬다)</a><br><br><br>
+<a href="#">Content(글자를 누르면 창이뜬다)</a><br><br><br><br><br><br>
+</ul>
+
+<h1>첨부파일</h1>
+<input type=file name='file1' style='display: none;'> 
+<input type='text' name='file2' id='file2'> 
+<img src="images/attach.jpg" onmouseover="this.src='images/attach1.jpg'" 
+onmouseout="this.src='images/attach.jpg'" width="100" height="50" border='0' 
+onclick='document.all.file1.click(); document.all.file2.value=document.all.file1.value'> 
+
+
+<h1>Schedul checklist</h1>
+
+<input id="slider1" type="range" min="1" max="100" step="1" />
+
+
+
+<br><br><br>
+
+<div>
+<label for="from">From</label>
+<input type="text" id="from" name="from">
+<label for="to">to</label>
+<input type="text" id="to" name="to">
+</div>
+
+
+</body>
+</html>
