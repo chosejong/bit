@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<link rel="stylesheet" href="label.css" type="text/css" />
+<script src="./js/jquery-1.11.3.min.js"></script>
+
+<script>
+	function save(){
+
+		// 체크값 id
+		var checkedid = null;
+		// 체크 값 color
+		var color = null;
+		// 체크된 라디오 input 찾기
+		$('input[id|="label-bg-color"]').each(function(i, e) {
+			if (e.checked) 
+			{
+				// css 에서 체크값 id를 가져와 변수에 저장
+				checkedid = $('#' + e.id);
+			}
+		});
+		
+		// text값 가져와서 변수에 저장
+		var text = $("#labelText").val();
+		// style에 background-color 값을 불러와서 저장
+		var color = checkedid.css("background-color");
+		// 저장된 정보를 가져와서 변수 s에 저장
+		var s = '<span class ="c1 label-bg-type"  style="background-color: '+color+'">'
+				+ text + '</span>'
+		// 변수 s 값을 label_box 밑에 삽입
+		$(s).appendTo($('#label_box'));
+		// ???
+		$("#labelText").val('');
+
+	}
+</script>
+</head>
+<body>
+<h3>Label</h3>
+<div id="Label">
+<input type="text" id="labelText" name="text" size="30" width="200" height="150px" 
+	placeholder="Label이름을 입력하세요">
+<input type="button" class="ct-btn white" value="Save" onclick="save()" /></div>
+	
+<input type="radio" name="labelBg" id="label-bg-color-blue" class="label-bg-blue" />
+<label for="label-bg-color-blue"></label>
+<input type="radio" name="labelBg" id="label-bg-color-pink" class="label-bg-pink" style="background-color: #FFAEC9;" />
+<label for="label-bg-color-pink"></label>
+<input type="radio" name="labelBg" id="label-bg-color-green" class="label-bg-green" />
+<label for="label-bg-color-green"></label>
+
+<div id='label_box'></div>
+
+</body>
+</html>
