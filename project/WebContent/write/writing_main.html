@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-1.11.3.min.js"></script>
+<script>
+	
+	// 편집모드에서 일반모드로 넘어갈때 onclick메서드 변경하는 펑션
+	function linkToggleDiv(id) {
+		var div = $('#' + id);
+		div.attr('onclick', "toggleDiv('" + id + "')");
+	}
+	
+	// 편집 모드, 일반 모드로 변경시키는 펑션
+	function toggleDiv(id) 
+	{
+		// div에 저장된 id값을 가져와 변수에 저장
+		var div = $('#' + id);
+		// clsaa에 editing 메서드가 있다면......
+		if(div.hasClass('editing'))
+		{
+			// 편집 모드 → 일반 모드
+			// textarea에 저장된 text값을 가져 온다.
+			var text = div.children('textarea').val();
+			// 만약 text값이 없다면........
+			if(text == '')
+			{
+				// div 하위에 있는 모든 정보를 제거 한다.
+				div.empty();
+				// span을 만든다.
+				var span = $('<span>eite</span>');
+				// span을 div 하위에 삽입 한다.
+				span.appendTo(div);
+				// onclick메서드를 변경 하는 작업
+				div.attr('onclick', "linkToggleDiv('" + id + "')");
+			} else {
+				// div 하위에 있는 모든 정보를 제거 한다.
+				div.empty();
+				// span을 만든다.
+				var span = $('<span>' + text + '</span>');
+				// span을 div 하위에 삽입 한다.
+				span.appendTo(div);
+				// onclick메서드를 변경 하는 작업
+				div.attr('onclick', "linkToggleDiv('" + id + "')");
+			}
+		} else {
+			// 일반모드 → 편집모드
+			// onclick메서드를 null값으로 변경(변경하지 않을시 클릭할때마다 실행됨)
+			div.attr('onclick', null);
+			// span에 저장된 text값을 가져와 변수에 저장한다.
+			var text = div.children('span').text();
+			// div에 하위에 저장된 모든 데이터를 삭제 한다.
+			div.empty();
+			// textarea를 생성하는 작업
+			var textarea = $('<textarea>' + text + '</textarea>');
+			// br를 생성하는 작업
+			var br = $('<br/>');
+			// button를 생성하는 작업
+			var button = $('<button onclick="toggleDiv(\'' + id + '\');">SAVE</button>');
+			// textarea, br, button를 div하위 에 삽입한다.
+			textarea.appendTo(div);
+			br.appendTo(div);
+			button.appendTo(div);
+			
+		}
+		// class에 editing값을 추가 한다.
+		$(div).toggleClass('editing');
+	}
+	
+	function date() 
+	{
+		
+	}
+	
+</script>
+
+
+</head>
+<body>
+	<div
+		style="overflow: scroll; border: 1px solid red; width: 600px; height: auto; padding: 10px;">
+		<div
+			style="border: 1px solid red; width: auto; height: auto; margin: 10px 40px 10px 40px">
+			<div onclick="date();">date</div>
+			<br>
+
+
+
+			<div>
+				subject
+				<div id="Subject" class="field" style="cursor: pointer"
+					onclick="toggleDiv('Subject');">
+					<span>안녕</span>
+				</div>
+
+			</div>
+			<div>
+				content
+				<div id="Content" class="field" onclick="toggleDiv('Content');"
+					style="cursor: pointer">
+					<span>안녕</span>
+
+				</div>
+			</div>
+			<div>schedule
+			</div>
+			<br>
+			<div>member
+			</div>
+			<br>
+			<div>attach
+			</div>
+			<br>
+		</div>
+	</div>
+</body>
+</html>
