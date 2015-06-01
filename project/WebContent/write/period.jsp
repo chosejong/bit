@@ -26,6 +26,7 @@
 		return;
 	}
 
+	
 	// DB연결
 	Connection conn = DriverManager.getConnection(url, id, pwd);
 
