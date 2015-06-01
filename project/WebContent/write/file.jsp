@@ -19,10 +19,9 @@
 	String mimeType = null;
 	String savePath = null;
 	long fileSize = 0L;
+		savePath = "E:\\apache-tomcat-8.0.22\\temp";
 	//String savePath = application.getRealPath("E:/apache-tomcat-8.0.22/temp");
 	try {
-		savePath = "E:/apache-tomcat-8.0.22/temp";
-
 		// 사이즈 제한
 		int size = 5 * 1024 * 1024;
 		
