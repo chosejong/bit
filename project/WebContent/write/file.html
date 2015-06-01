@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="file.css" type="text/css" />
+<meta charset="utf-8">
+<script src="../js/jquery-1.11.3.min.js"></script>
+<script>
+ 	function save() 
+	{
+		
+ 		var date = {
+ 			
+ 		}
+ 		
+		$.post('./file.jsp', data, function(){
+			alert("확인");
+		});
+	} 
+</script>
+</head>
+<body>
+<form  action="file.jsp" method="post" enctype="application/x-www-form-urlencoded">
+	<div id="Attach" style="width: 250px; border: 1px solid; color: red;">
+		<div align="center">
+			<span class="from">Attach From</span>
+		</div>
+
+		<div>
+			<span class="link" >Attach a link</span>
+		</div>
+		<div>
+			<input type='text' name='file_name' id='file_name'> 
+			<input type="file" name="file" id="file" style='display: none;'> 
+			
+			<img
+				src="images/attach_bifo.jpg"
+				onmouseover="this.src='images/attach_after.jpg'"
+				onmouseout="this.src='images/attach_bifo.jpg'" border='0'
+				style="cursor: pointer;"
+				onclick='document.all.file.click(); document.all.file_name.value=document.all.file.value'>
+				<input type="submit" onclick="save()" value="저장"/>
+		</div>
+
+	</div>
+	</form>
+</body>
+</html>
